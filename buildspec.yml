@@ -17,5 +17,5 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t server .
-      - docker tag server $REPOSITORY_URI:$IMAGE_TAG
+      - docker run -d -p 80:80 server
     files: imagedefinitions.json
