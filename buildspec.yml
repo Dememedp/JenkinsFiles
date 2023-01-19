@@ -19,7 +19,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Writing image definitions file...
-      - docker push public.ecr.aws/y0u9a1c0/nginx-website
+      - docker push 842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website:latest
       - printf '[{"name”:"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: 
