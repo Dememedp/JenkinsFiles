@@ -7,6 +7,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      - set -x
       - $(aws ecr get-login --no-include-email --region es-east-1)
       - REPOSITORY_URI=842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
