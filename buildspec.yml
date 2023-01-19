@@ -27,4 +27,4 @@ post_build:
       - echo Writing image definitions file...
       - printf '[{"name”:"website-hosting","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
 artifacts: 
-    files: imagedefinitions.json
+    files: $CODEBUILD_SRC_DIR/imagedefinitions.json
