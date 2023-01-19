@@ -21,6 +21,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Writing image definitions file...
+      - docker login --username $dockerhub_username -p $dockerhub_password
       - printf '[{"name”:"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
