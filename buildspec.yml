@@ -9,7 +9,7 @@ phases:
       - aws configure set aws_secret_access_key $secret
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin https://842098962737.dkr.ecr.us-east-1.amazonaws.com
       - docker login -u $dockerhub_username -p $dockerhub_password
-      - REPOSITORY_URI=842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website
+      - REPOSITORY_URI=https://842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -21,7 +21,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Writing image definitions file...
-      - docker push 842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website:latest
+      - docker push https://842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website:latest
       - printf '[{"name”:"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: 
