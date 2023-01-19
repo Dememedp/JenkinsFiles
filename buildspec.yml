@@ -21,7 +21,7 @@ phases:
       - aws --version
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - echo Pushing the Docker images...
-      - docker push server
+      # - docker push server
       - docker push server:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"nginx","imageUri":"%s"}]' server:$IMAGE_TAG > imagedefinitions.json
