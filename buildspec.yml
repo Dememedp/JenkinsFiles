@@ -7,7 +7,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 842098962737.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/y0u9a1c0
       - REPOSITORY_URI=842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
@@ -15,13 +15,13 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t nginx-website:latest .
-      - docker tag nginx-website:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build -t nginx-website .
+      - docker tag nginx-website:latest public.ecr.aws/y0u9a1c0/nginx-website:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Writing image definitions file...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push public.ecr.aws/y0u9a1c0/nginx-website:latest
       - printf '[{"name”:"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
