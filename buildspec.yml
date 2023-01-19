@@ -7,7 +7,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 842098962737.dkr.ecr.us-east-1.amazonaws.com
+      - $(aws ecr get-login --no-include-email --region es-east-1)
       - REPOSITORY_URI=842098962737.dkr.ecr.us-east-1.amazonaws.com/nginx-website
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
@@ -25,3 +25,6 @@ phases:
       - printf '[{"name”:"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
+  
+  
+#      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 842098962737.dkr.ecr.us-east-1.amazonaws.com
